@@ -4,15 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MP3-MKV Merger</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     <h1>MP3-MKV Merger</h1>
-    <div style="text-align: right; margin-top: -40px;">
-        <a href="/manual" target="_blank" style="color: #3498db; text-decoration: none;">
-            User Manual
-        </a>
-    </div>
     
     <div class="container">
         <form id="mergerForm">
@@ -50,78 +45,6 @@
                 <label for="keepOriginal" style="display: inline;">Keep original audio track (when not replacing)</label>
             </div>
             
-            <span id="advancedToggle" class="advanced-toggle">Show Advanced Options</span>
-            
-            <div id="advancedOptions" class="advanced-options">
-                <div class="option-row">
-                    <div class="option-group">
-                        <label>Audio Options:</label>
-                        <div class="form-group">
-                            <input type="checkbox" id="normalizeAudio" name="normalizeAudio">
-                            <label for="normalizeAudio" style="display: inline;">Normalize audio levels</label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="audioCodec">Audio Codec:</label>
-                            <select id="audioCodec" name="audioCodec">
-                                <option value="aac">AAC (recommended)</option>
-                                <option value="mp3">MP3</option>
-                                <option value="copy">Copy (no re-encoding)</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="option-group">
-                        <label>Video Options:</label>
-                        <div class="form-group">
-                            <label for="videoCodec">Video Codec:</label>
-                            <select id="videoCodec" name="videoCodec">
-                                <option value="copy">Copy (no re-encoding, recommended)</option>
-                                <option value="h264">H.264</option>
-                                <option value="hevc">H.265/HEVC</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="outputFormat">Output Format:</label>
-                            <select id="outputFormat" name="outputFormat">
-                                <option value="mp4">MP4 (recommended)</option>
-                                <option value="webm">WebM</option>
-                                <option value="mov">MOV</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="option-row">
-                    <div class="option-group">
-                        <div class="form-group">
-                            <input type="checkbox" id="socialMedia" name="socialMedia">
-                            <label for="socialMedia" style="display: inline;">Optimize for social media</label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="socialWidth">Width:</label>
-                            <input type="number" id="socialWidth" name="socialWidth" value="1080">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="socialHeight">Height:</label>
-                            <input type="number" id="socialHeight" name="socialHeight" value="1080">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="socialFormat">Format:</label>
-                            <select id="socialFormat" name="socialFormat">
-                                <option value="mp4">MP4</option>
-                                <option value="mov">MOV</option>
-                                <option value="webm">WebM</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
             <div class="buttons">
                 <button type="button" id="startButton">Start Processing</button>
                 <button type="button" id="stopButton" disabled>Stop</button>
@@ -137,6 +60,6 @@
         </div>
     </div>
     
-    <script src="script.js"></script>
+    <script src="/script.js"></script>
 </body>
 </html>

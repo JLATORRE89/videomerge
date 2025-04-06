@@ -1,56 +1,22 @@
 
 // JavaScript for MP3-MKV Merger web UI
 document.addEventListener('DOMContentLoaded', function() {
-    // Toggle advanced options
-    document.getElementById('advancedToggle').addEventListener('click', function() {
-        const advancedOptions = document.getElementById('advancedOptions');
-        const isHidden = advancedOptions.style.display === 'none' || advancedOptions.style.display === '';
-        
-        advancedOptions.style.display = isHidden ? 'block' : 'none';
-        this.textContent = isHidden ? 'Hide Advanced Options' : 'Show Advanced Options';
-    });
-    
-    // Handle output format changes
-    const outputFormatSelect = document.getElementById('outputFormat');
-    if (outputFormatSelect) {
-        outputFormatSelect.addEventListener('change', function() {
-            const selectedFormat = this.value;
-            const videoCodecSelect = document.getElementById('videoCodec');
-            const audioCodecSelect = document.getElementById('audioCodec');
-            
-            // Reset options first
-            if (videoCodecSelect) {
-                videoCodecSelect.querySelectorAll('option').forEach(opt => opt.disabled = false);
-            }
-            if (audioCodecSelect) {
-                audioCodecSelect.querySelectorAll('option').forEach(opt => opt.disabled = false);
-            }
-            
-            // Format-specific settings
-            if (selectedFormat === 'webm') {
-                // WebM typically uses VP8/VP9 for video and Opus/Vorbis for audio
-                // Since we don't have these options explicitly, we'll just show a notice
-                alert('Note: WebM format typically uses VP8/VP9 for video and Opus/Vorbis for audio codecs. ' +
-                      'Your selected codecs will be mapped to appropriate WebM codecs.');
-            }
-        });
-    }
-    
     // Directory browse buttons
     document.querySelectorAll('.browse-button').forEach(function(button) {
         button.addEventListener('click', function() {
             const inputId = this.getAttribute('data-for');
-            // This is just visual - in a web app we can't access file system directly
-            alert('Browse functionality is simulated in the web interface. Please enter the path manually.');
-            
-            // For testing, you can set some example paths
             const input = document.getElementById(inputId);
+            
+            // We can't browse directly from a web app
+            alert('In a web browser, we cannot directly browse your filesystem. Please manually enter the full path.');
+            
+            // For demonstration/testing, suggest some example paths
             if (inputId === 'mp3Dir') {
-                input.value = input.value || 'C:\Users\Music\MP3';
+                input.value = input.value || 'C:\\Users\\YourName\\Music';
             } else if (inputId === 'mkvDir') {
-                input.value = input.value || 'C:\Users\Videos\MKV';
+                input.value = input.value || 'C:\\Users\\YourName\\Videos';
             } else if (inputId === 'outDir') {
-                input.value = input.value || 'C:\Users\Videos\Output';
+                input.value = input.value || 'C:\\Users\\YourName\\Videos\\Output';
             }
         });
     });
@@ -81,15 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
             mkvDir: form.mkvDir.value,
             outDir: form.outDir.value,
             replaceAudio: form.replaceAudio.checked,
-            keepOriginal: form.keepOriginal.checked,
-            normalizeAudio: form.normalizeAudio ? form.normalizeAudio.checked : false,
-            audioCodec: form.audioCodec ? form.audioCodec.value : 'aac',
-            videoCodec: form.videoCodec ? form.videoCodec.value : 'copy',
-            outputFormat: form.outputFormat ? form.outputFormat.value : 'mp4',
-            socialMedia: form.socialMedia ? form.socialMedia.checked : false,
-            socialWidth: form.socialWidth ? form.socialWidth.value : 1080,
-            socialHeight: form.socialHeight ? form.socialHeight.value : 1080,
-            socialFormat: form.socialFormat ? form.socialFormat.value : 'mp4'
+            keepOriginal: form.keepOriginal.checked
         };
         
         // Send the request
@@ -172,12 +130,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (data.success) {
                 if (data.matches.length > 0) {
-                    let message = 'Found ' + data.matches.length + ' matching pairs:
-
-';
+                    let message = 'Found ' + data.matches.length + ' matching pairs:\n\n';
                     data.matches.forEach((match, index) => {
-                        message += (index + 1) + '. ' + match.mp3 + ' ⟹ ' + match.mkv + '
-';
+                        message += (index + 1) + '. ' + match.mp3 + ' -> ' + match.mkv + '\n';
                     });
                     alert(message);
                 } else {
