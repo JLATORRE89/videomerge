@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MP3-MKV Merger Manual</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        h1, h2, h3, h4 {
+            color: #2c3e50;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        
+        h1 {
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        section {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        code {
+            font-family: Consolas, monospace;
+            background-color: #f8f8f8;
+            padding: 2px 4px;
+            border-radius: 3px;
+            border: 1px solid #ddd;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .note {
+            background-color: #d4f4ff;
+            border-left: 4px solid #3498db;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+        
+        .warning {
+            background-color: #ffeaa7;
+            border-left: 4px solid #fdcb6e;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+        
+        .toc {
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .toc ul ul {
+            padding-left: 20px;
+        }
+        
+        .toc a {
+            text-decoration: none;
+            color: #3498db;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            text-decoration: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#top" class="back-to-top" title="Back to Top">↑</a>
+    
+    <h1 id="top">MP3-MKV Merger User Manual</h1>
+    
+    <section class="toc">
+        <h2>Table of Contents</h2>
+        <ul>
+            <li><a href="#introduction">1. Introduction</a></li>
+            <li><a href="#installation">2. Installation</a></li>
+            <li><a href="#web-interface">3. Using the Web Interface</a>
+                <ul>
+                    <li><a href="#basic-options">3.1 Basic Options</a></li>
+                    <li><a href="#advanced-options">3.2 Advanced Options</a></li>
+                    <li><a href="#file-matching">3.3 File Matching</a></li>
+                    <li><a href="#processing">3.4 Processing Files</a></li>
+                </ul>
+            </li>
+            <li><a href="#command-line">4. Using the Command Line</a>
+                <ul>
+                    <li><a href="#cli-examples">4.1 Command Line Examples</a></li>
+                </ul>
+            </li>
+            <li><a href="#output-formats">5. Output Formats</a>
+                <ul>
+                    <li><a href="#mp4">5.1 MP4</a></li>
+                    <li><a href="#webm">5.2 WebM</a></li>
+                    <li><a href="#mov">5.3 MOV</a></li>
+                </ul>
+            </li>
+            <li><a href="#social-media">6. Social Media Optimization</a></li>
+            <li><a href="#file-monitoring">7. File Monitoring</a></li>
+            <li><a href="#troubleshooting">8. Troubleshooting</a></li>
+            <li><a href="#faq">9. Frequently Asked Questions</a></li>
+        </ul>
+    </section>
+    
+    <section id="introduction">
+        <h2>1. Introduction</h2>
+        <p>MP3-MKV Merger is a powerful utility designed to combine MP3 audio files with MKV video files, particularly those recorded with OBS Studio. This tool is ideal for content creators who record their video and audio separately.</p>
+        
+        <p>Common use cases include:</p>
+        <ul>
+            <li>Adding high-quality voiceovers to gameplay recordings</li>
+            <li>Combining separately recorded audio and video for podcasts</li>
+            <li>Replacing poor quality audio in video recordings</li>
+            <li>Preparing content for social media platforms</li>
+        </ul>
+        
+        <p>The application offers both a user-friendly web interface and a powerful command-line interface, making it suitable for both casual users and professionals who need to process multiple files in batch.</p>
+    </section>
+    
+    <section id="installation">
+        <h2>2. Installation</h2>
+        
+        <h3>Prerequisites</h3>
+        <ul>
+            <li>Python 3.6 or higher installed on your system</li>
+            <li>ffmpeg installed and available in your system PATH</li>
+        </ul>
+        
+        <p>Installing ffmpeg:</p>
+        <ul>
+            <li><strong>Windows:</strong> Download from <a href="https://ffmpeg.org/download.html" target="_blank">ffmpeg.org</a> and add to your PATH</li>
+            <li><strong>macOS:</strong> Install with Homebrew: <code>brew install ffmpeg</code></li>
+            <li><strong>Linux:</strong> Use your package manager, e.g., <code>sudo apt install ffmpeg</code> for Ubuntu/Debian</li>
+        </ul>
+        
+        <h3>Installation Methods</h3>
+        
+        <h4>Method 1: Install as a Package</h4>
+        <pre>
+git clone https://github.com/yourusername/mp3-mkv-merger.git
+cd mp3-mkv-merger
+python patch.py  # If needed to fix structure
+pip install -r requirements.txt
+pip install -e .
+        </pre>
+        
+        <h4>Method 2: Run without Installing</h4>
+        <pre>
+git clone https://github.com/yourusername/mp3-mkv-merger.git
+cd mp3-mkv-merger
+python patch.py  # If needed to fix structure
+pip install -r requirements.txt
+python run_mp3_mkv_merger.py
+        </pre>
+        
+        <div class="note">
+            <p><strong>Note:</strong> If you have installed the package (Method 1), you can run the application from anywhere using the <code>mp3-mkv-merger</code> command.</p>
+        </div>
+    </section>
+    
+    <section id="web-interface">
+        <h2>3. Using the Web Interface</h2>
+        
+        <p>The web interface is the easiest way to use MP3-MKV Merger, especially for occasional use or when processing a small number of files.</p>
+        
+        <h3>Starting the Web Interface</h3>
+        <p>To start the web interface, run one of the following commands:</p>
+        <pre>
+# If installed as a package
+mp3-mkv-merger
+
+# If running from source
+python run_mp3_mkv_merger.py
+
+# Or as a module
+python -m mp3_mkv_merger.main
+        </pre>
+        
+        <p>This will start a local web server and automatically open your default browser to the interface (typically at http://localhost:8000).</p>
+        
+        <h3 id="basic-options">3.1 Basic Options</h3>
+        
+        <p>The main interface requires you to specify three directories:</p>
+        <ul>
+            <li><strong>MP3 Directory:</strong> The folder containing your MP3 audio files</li>
+            <li><strong>MKV Directory:</strong> The folder containing your MKV video files</li>
+            <li><strong>Output Directory:</strong> The folder where processed files will be saved</li>
+        </ul>
+        
+        <p>Basic audio options:</p>
+        <ul>
+            <li><strong>Replace original audio:</strong> When checked, completely replaces the audio in the MKV file with the MP3 audio</li>
+            <li><strong>Keep original audio track:</strong> When not replacing, keeps the original audio as a second track</li>
+        </ul>
+        
+        <h3 id="advanced-options">3.2 Advanced Options</h3>
+        
+        <p>Click "Show Advanced Options" to access additional settings:</p>
+        
+        <h4>Audio Options:</h4>
+        <ul>
+            <li><strong>Normalize audio levels:</strong> Adjusts audio to maintain consistent volume</li>
+            <li><strong>Audio Codec:</strong> Select from AAC (recommended), MP3, or Copy (no re-encoding)</li>
+        </ul>
+        
+        <h4>Video Options:</h4>
+        <ul>
+            <li><strong>Video Codec:</strong> Select from Copy (no re-encoding, fastest), H.264 (widely compatible), or H.265/HEVC (best compression)</li>
+            <li><strong>Output Format:</strong> Choose between MP4 (recommended), WebM, or MOV</li>
+        </ul>
+        
+        <h4>Social Media Options:</h4>
+        <ul>
+            <li><strong>Optimize for social media:</strong> Enable resizing for social platforms</li>
+            <li><strong>Width/Height:</strong> Set dimensions for social media output</li>
+            <li><strong>Format:</strong> Choose output format specifically for social media</li>
+        </ul>
+        
+        <div class="note">
+            <p><strong>Tip:</strong> For fastest processing, use "Copy" for both audio and video codecs if you don't need to change the format or quality.</p>
+        </div>
+        
+        <h3 id="file-matching">3.3 File Matching</h3>
+        
+        <p>MP3-MKV Merger will attempt to match MP3 files with MKV files using these methods (in order):</p>
+        <ol>
+            <li>Matching filenames (without extensions)</li>
+            <li>Creation times of files</li>
+            <li>Alphabetical order as a last resort</li>
+        </ol>
+        
+        <p>Click the "Find Matches" button to see which files will be paired before processing. This is useful to verify the correct files will be merged together.</p>
+        
+        <h3 id="processing">3.4 Processing Files</h3>
+        
+        <p>After configuring all options:</p>
+        <ol>
+            <li>Click "Start Processing" to begin merging files</li>
+            <li>The status area will show progress information</li>
+            <li>You can click "Stop" at any time to cancel the operation</li>
+            <li>When complete, the finished files will be available in your output directory</li>
+        </ol>
+    </section>
+    
+    <section id="command-line">
+        <h2>4. Using the Command Line</h2>
+        
+        <p>The command-line interface is ideal for batch processing or automation. It offers all the same functionality as the web interface but can be run from scripts or scheduled tasks.</p>
+        
+        <h3>Basic Syntax</h3>
+        <pre>
+mp3-mkv-merger --cli --mp3 /path/to/mp3 --mkv /path/to/mkv --out /path/to/output [options]
+        </pre>
+        
+        <h3>Available Options</h3>
+        <table>
+            <tr>
+                <th>Option</th>
+                <th>Description</th>
+                <th>Default</th>
+            </tr>
+            <tr>
+                <td><code>--cli</code></td>
+                <td>Run in command-line mode</td>
+                <td>False</td>
+            </tr>
+            <tr>
+                <td><code>--mp3 DIR</code></td>
+                <td>Directory containing MP3 files</td>
+                <td>Required</td>
+            </tr>
+            <tr>
+                <td><code>--mkv DIR</code></td>
+                <td>Directory containing MKV files</td>
+                <td>Required</td>
+            </tr>
+            <tr>
+                <td><code>--out DIR</code></td>
+                <td>Directory for output files</td>
+                <td>Required</td>
+            </tr>
+            <tr>
+                <td><code>--replace</code></td>
+                <td>Replace original audio</td>
+                <td>False</td>
+            </tr>
+            <tr>
+                <td><code>--no-keep</code></td>
+                <td>Don't keep original audio track</td>
+                <td>False</td>
+            </tr>
+            <tr>
+                <td><code>--normalize</code></td>
+                <td>Normalize audio levels</td>
+                <td>False</td>
+            </tr>
+            <tr>
+                <td><code>--audio-codec CODEC</code></td>
+                <td>Audio codec (aac, mp3, copy)</td>
+                <td>aac</td>
+            </tr>
+            <tr>
+                <td><code>--video-codec CODEC</code></td>
+                <td>Video codec (copy, h264, hevc)</td>
+                <td>copy</td>
+            </tr>
+            <tr>
+                <td><code>--output-format FORMAT</code></td>
+                <td>Output format (mp4, webm, mov)</td>
+                <td>mp4</td>
+            </tr>
+            <tr>
+                <td><code>--social</code></td>
+                <td>Enable social media optimization</td>
+                <td>False</td>
+            </tr>
+            <tr>
+                <td><code>--social-width W</code></td>
+                <td>Width for social media output</td>
+                <td>1080</td>
+            </tr>
+            <tr>
+                <td><code>--social-height H</code></td>
+                <td>Height for social media output</td>
+                <td>1080</td>
+            </tr>
+            <tr>
+                <td><code>--social-format FORMAT</code></td>
+                <td>Format for social media output (mp4, webm, mov)</td>
+                <td>mp4</td>
+            </tr>
+            <tr>
+                <td><code>--watch</code></td>
+                <td>Watch directories for new files</td>
+                <td>False</td>
+            </tr>
+            <tr>
+                <td><code>--port PORT</code></td>
+                <td>Port for web server</td>
+                <td>8000</td>
+            </tr>
+            <tr>
+                <td><code>--debug</code></td>
+                <td>Enable debug logging</td>
+                <td>False</td>
+            </tr>
+            <tr>
+                <td><code>--log-file FILE</code></td>
+                <td>Log file path</td>
+                <td>Auto-generated</td>
+            </tr>
+        </table>
+        
+        <h3 id="cli-examples">4.1 Command Line Examples</h3>
+        
+        <h4>Basic Audio Replacement</h4>
+        <pre>
+mp3-mkv-merger --cli --mp3 /audio --mkv /video --out /output --replace
+        </pre>
+        
+        <h4>Keep Original Audio as Second Track</h4>
+        <pre>
+mp3-mkv-merger --cli --mp3 /audio --mkv /video --out /output
+        </pre>
+        
+        <h4>Normalize Audio and Use MP3 Codec</h4>
+        <pre>
+mp3-mkv-merger --cli --mp3 /audio --mkv /video --out /output --normalize --audio-codec mp3
+        </pre>
+        
+        <h4>Output in WebM Format</h4>
+        <pre>
+mp3-mkv-merger --cli --mp3 /audio --mkv /video --out /output --output-format webm
+        </pre>
+        
+        <h4>Social Media Optimization for Vertical Video</h4>
+        <pre>
+mp3-mkv-merger --cli --mp3 /audio --mkv /video --out /output --social --social-width 1080 --social-height 1920
+        </pre>
+        
+        <h4>Watch Directories for New Files</h4>
+        <pre>
+mp3-mkv-merger --cli --mp3 /audio --mkv /video --out /output --watch
+        </pre>
+        
+        <div class="note">
+            <p><strong>Note:</strong> The CLI mode will show progress in the terminal and create log files in the logs directory.</p>
+        </div>
+    </section>
+    
+    <section id="output-formats">
+        <h2>5. Output Formats</h2>
+        
+        <p>MP3-MKV Merger supports three output formats, each with different characteristics:</p>
+        
+        <h3 id="mp4">5.1 MP4</h3>
+        <p>The default format with wide compatibility.</p>
+        <ul>
+            <li><strong>Pros:</strong> Plays on virtually all devices and platforms</li>
+            <li><strong>Cons:</strong> Not fully open-source</li>
+            <li><strong>Best for:</strong> General use, sharing across platforms</li>
+            <li><strong>Typical codecs:</strong> H.264 video and AAC audio</li>
+        </ul>
+        
+        <h3 id="webm">5.2 WebM</h3>
+        <p>An open format designed for the web.</p>
+        <ul>
+            <li><strong>Pros:</strong> Open-source, smaller file sizes, great for web embedding</li>
+            <li><strong>Cons:</strong> Not as widely supported on older devices</li>
+            <li><strong>Best for:</strong> Web content, saving bandwidth</li>
+            <li><strong>Typical codecs:</strong> VP8/VP9 video and Opus/Vorbis audio</li>
+        </ul>
+        
+        <div class="note">
+            <p><strong>Note:</strong> When using WebM output format, codecs will automatically be mapped to appropriate WebM codecs by ffmpeg.</p>
+        </div>
+        
+        <h3 id="mov">5.3 MOV</h3>
+        <p>A format commonly used in Apple ecosystems.</p>
+        <ul>
+            <li><strong>Pros:</strong> Good quality, well-supported on Apple devices</li>
+            <li><strong>Cons:</strong> Larger file sizes, less compatible on non-Apple platforms</li>
+            <li><strong>Best for:</strong> Apple ecosystem, professional video workflows</li>
+            <li><strong>Typical codecs:</strong> H.264 video and AAC audio</li>
+        </ul>
+    </section>
+    
+    <section id="social-media">
+        <h2>6. Social Media Optimization</h2>
+        
+        <p>MP3-MKV Merger includes features to optimize your videos for social media platforms.</p>
+        
+        <h3>Resolution Options</h3>
+        <p>Common dimensions for social media platforms:</p>
+        <ul>
+            <li><strong>Square (1:1):</strong> 1080×1080 - Good for Instagram, Facebook</li>
+            <li><strong>Vertical (9:16):</strong> 1080×1920 - Perfect for TikTok, Instagram/Facebook Stories</li>
+            <li><strong>Landscape (16:9):</strong> 1920×1080 - Standard for YouTube, LinkedIn</li>
+        </ul>
+        
+        <h3>Using Social Media Optimization</h3>
+        <ol>
+            <li>Check "Optimize for social media" in the advanced options</li>
+            <li>Set the width and height according to your target platform</li>
+            <li>Choose the appropriate format (MP4 recommended for most platforms)</li>
+        </ol>
+        
+        <div class="warning">
+            <p><strong>Warning:</strong> Social media optimization will resize your video, which may result in cropping or letterboxing depending on your source aspect ratio.</p>
+        </div>
+    </section>
+    
+    <section id="file-monitoring">
+        <h2>7. File Monitoring</h2>
+        
+        <p>The file monitoring feature allows MP3-MKV Merger to watch directories for new files and process them automatically. This is useful for workflows where you regularly record video and audio separately.</p>
+        
+        <h3>Command Line Usage</h3>
+        <pre>
+mp3-mkv-merger --cli --mp3 /audio --mkv /video --out /output --watch
+        </pre>
+        
+        <p>When enabled:</p>
+        <ul>
+            <li>The application will continue running in the background</li>
+            <li>It will monitor both the MP3 and MKV directories for new files</li>
+            <li>When a new file is detected, it will log the event</li>
+            <li>Files will be matched and processed according to your settings</li>
+            <li>Press Ctrl+C to stop monitoring</li>
+        </ul>
+        
+        <div class="note">
+            <p><strong>Note:</strong> For file monitoring to work optimally, try to use consistent file naming between your audio and video recordings.</p>
+        </div>
+    </section>
+    
+    <section id="troubleshooting">
+        <h2>8. Troubleshooting</h2>
+        
+        <h3>Common Issues and Solutions</h3>
+        
+        <h4>ffmpeg Not Found</h4>
+        <p><strong>Error:</strong> "ffmpeg not found in PATH"</p>
+        <p><strong>Solution:</strong> Install ffmpeg and ensure it's in your system PATH. Test by running <code>ffmpeg -version</code> in a terminal.</p>
+        
+        <h4>No Files Found</h4>
+        <p><strong>Error:</strong> "No MP3 files found" or "No MKV files found"</p>
+        <p><strong>Solution:</strong> Check that your directories are correct and contain files with the proper extensions (.mp3 or .mkv).</p>
+        
+        <h4>Permission Errors</h4>
+        <p><strong>Error:</strong> Permission denied when accessing directories</p>
+        <p><strong>Solution:</strong> Ensure you have read/write permissions for all directories specified.</p>
+        
+        <h4>File Mismatch</h4>
+        <p><strong>Problem:</strong> MP3 and MKV files aren't matching correctly</p>
+        <p><strong>Solution:</strong> Use the "Find Matches" feature to see which files will be paired. If necessary, rename your files to ensure proper matching.</p>
+        
+        <h4>Quality Issues</h4>
+        <p><strong>Problem:</strong> Output video quality is poor</p>
+        <p><strong>Solution:</strong> Try using the "copy" option for video codec to avoid re-encoding. If that doesn't work, use h264 or hevc with higher quality settings.</p>
+        
+        <h4>Audio Sync Issues</h4>
+        <p><strong>Problem:</strong> Audio and video are out of sync</p>
+        <p><strong>Solution:</strong> This is usually due to differences in the source files. You may need to edit your audio file to ensure proper synchronization before merging.</p>
+        
+        <h3>Log Files</h3>
+        <p>MP3-MKV Merger creates detailed log files in the logs directory. These logs can be helpful for diagnosing issues. The default location is:</p>
+        <pre>
+/path/to/mp3-mkv-merger/logs/mp3_mkv_merger_[timestamp].log
+        </pre>
+    </section>
+    
+    <section id="faq">
+        <h2>9. Frequently Asked Questions</h2>
+        
+        <h3>General Questions</h3>
+        
+        <h4>Q: Can I merge multiple MP3 files with one MKV file?</h4>
+        <p>A: Not directly. The tool processes pairs of files (one MP3, one MKV). For complex scenarios, you might need to combine your MP3 files first using another tool.</p>
+        
+        <h4>Q: What happens if I have more MP3 files than MKV files or vice versa?</h4>
+        <p>A: The application will process as many pairs as possible, using the smallest number of files from either directory. Excess files will be ignored.</p>
+        
+        <h4>Q: Can I use this tool with other file formats?</h4>
+        <p>A: The tool is specifically designed for MP3 and MKV files. For other formats, you would need to convert them first.</p>
+        
+        <h4>Q: How long does processing take?</h4>
+        <p>A: Processing time depends on file sizes, selected codecs, and your computer's performance. Using the "copy" codec option is faster as it avoids re-encoding.</p>
+        
+        <h4>Q: Is there a limit to the file size I can process?</h4>
+        <p>A: There's no built-in limit, but your system's memory and disk space will be limiting factors. For very large files, ensure you have sufficient resources.</p>
+        
+        <h3>Technical Questions</h3>
+        
+        <h4>Q: How does the "normalize audio" option work?</h4>
+        <p>A: It uses ffmpeg's loudnorm filter to analyze audio levels and adjust them for consistent volume. This is useful for audio that's too quiet or has significant volume variations.</p>
+        
+        <h4>Q: What's the difference between "replace audio" and not keeping the original track?</h4>
+        <p>A: "Replace audio" completely substitutes the MKV's audio with the MP3. Without this option, the MP3 is added as a new track. "Keep original" determines whether the original audio remains as an additional track.</p>
+        
+        <h4>Q: Which audio codec should I choose?</h4>
+        <p>A: For most uses, AAC provides the best balance of quality and compatibility. MP3 is widely supported but lower quality. "Copy" is fastest but only works if your original audio is already in a compatible format.</p>
+        
+        <h4>Q: Can I run this tool on a server without a GUI?</h4>
+        <p>A: Yes, the command-line interface (CLI) works perfectly on headless servers. Just use the --cli option.</p>
+    </section>
+    
+    <footer>
+        <p>MP3-MKV Merger User Manual - Version 1.0</p>
+        <p><a href="https://github.com/yourusername/mp3-mkv-merger" target="_blank">Project Repository</a></p>
+    </footer>
+    
+    <script>
+        // When the user scrolls down 100px show the back to top button
+        window.onscroll = function() {scrollFunction()};
+        
+        function scrollFunction() {
+            var backToTopButton = document.querySelector(".back-to-top");
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

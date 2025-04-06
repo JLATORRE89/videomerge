@@ -1,0 +1,14 @@
+# Requirements for MP3-MKV Merger
+# Core dependencies for enhanced functionality
+
+# For a more Pythonic interface to ffmpeg
+ffmpeg-python>=0.2.0
+
+# For improved progress bars in CLI mode
+tqdm>=4.45.0
+
+# For a more robust web server
+flask>=2.0.0
+
+# For file monitoring capabilities
+watchdog>=2.1.0

@@ -1,0 +1,16 @@
+2025-04-05 19:54:25,492 - mp3_mkv_merger - INFO - MP3-MKV Merger starting
+2025-04-05 19:54:25,493 - mp3_mkv_merger - INFO - System: Windows 11
+2025-04-05 19:54:25,494 - mp3_mkv_merger - INFO - Python: 3.13.1 (tags/v3.13.1:0671451, Dec  3 2024, 19:06:28) [MSC v.1942 64 bit (AMD64)]
+2025-04-05 19:54:25,495 - mp3_mkv_merger - INFO - Log level: INFO
+2025-04-05 19:54:25,495 - mp3_mkv_merger - INFO - MP3-MKV Merger starting
+2025-04-05 19:54:25,499 - mp3_mkv_merger.web_ui - INFO - Web UI files created successfully
+2025-04-05 19:54:25,561 - mp3_mkv_merger.web_ui - INFO - Starting web server on http://127.0.0.1:8000
+2025-04-05 19:54:25,597 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+2025-04-05 19:54:25,598 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-05 19:54:25,891 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 19:54:25] "GET / HTTP/1.1" 200 -
+2025-04-05 19:54:25,919 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 19:54:25] "GET /styles.css HTTP/1.1" 200 -
+2025-04-05 19:54:26,047 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 19:54:26] "GET /script.js HTTP/1.1" 200 -
+2025-04-05 19:54:51,030 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 19:54:51] "[36mGET / HTTP/1.1[0m" 304 -
+2025-04-05 19:54:51,047 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 19:54:51] "[36mGET /styles.css HTTP/1.1[0m" 304 -
+2025-04-05 19:54:51,049 - werkzeug - INFO - 127.0.0.1 - - [05/Apr/2025 19:54:51] "GET /script.js HTTP/1.1" 200 -
