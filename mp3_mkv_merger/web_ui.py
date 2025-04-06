@@ -17,8 +17,8 @@ try:
 except ImportError:
     raise ImportError("Flask not installed. Install with: pip install flask")
 
-from mp3_mkv_merger.core import MediaMerger
-from mp3_mkv_merger.utils import get_default_directory, check_ffmpeg_installed
+from .core import MediaMerger
+from .utils import get_default_directory, check_ffmpeg_installed
 
 # Get logger
 logger = logging.getLogger('mp3_mkv_merger.web_ui')
@@ -217,8 +217,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const audioCodecSelect = document.getElementById('audioCodec');
             
             // Reset options first
-            videoCodecSelect.querySelectorAll('option').forEach(opt => opt.disabled = false);
-            audioCodecSelect.querySelectorAll('option').forEach(opt => opt.disabled = false);
+            if (videoCodecSelect) {
+                videoCodecSelect.querySelectorAll('option').forEach(opt => opt.disabled = false);
+            }
+            if (audioCodecSelect) {
+                audioCodecSelect.querySelectorAll('option').forEach(opt => opt.disabled = false);
+            }
             
             // Format-specific settings
             if (selectedFormat === 'webm') {
@@ -235,7 +239,17 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             const inputId = this.getAttribute('data-for');
             // This is just visual - in a web app we can't access file system directly
-            alert('Browse functionality is simulated. Please enter the path manually.');
+            alert('Browse functionality is simulated in the web interface. Please enter the path manually.');
+            
+            // For testing, you can set some example paths
+            const input = document.getElementById(inputId);
+            if (inputId === 'mp3Dir') {
+                input.value = input.value || 'C:\\Users\\Music\\MP3';
+            } else if (inputId === 'mkvDir') {
+                input.value = input.value || 'C:\\Users\\Videos\\MKV';
+            } else if (inputId === 'outDir') {
+                input.value = input.value || 'C:\\Users\\Videos\\Output';
+            }
         });
     });
     
@@ -257,6 +271,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Disable start button, enable stop button
         this.disabled = true;
         document.getElementById('stopButton').disabled = false;
+        document.getElementById('findMatchesButton').disabled = true;
         
         // Collect form data
         const formData = {
@@ -265,14 +280,14 @@ document.addEventListener('DOMContentLoaded', function() {
             outDir: form.outDir.value,
             replaceAudio: form.replaceAudio.checked,
             keepOriginal: form.keepOriginal.checked,
-            normalizeAudio: form.normalizeAudio.checked,
-            audioCodec: form.audioCodec.value,
-            videoCodec: form.videoCodec.value,
-            outputFormat: form.outputFormat.value,
-            socialMedia: form.socialMedia.checked,
-            socialWidth: form.socialWidth.value,
-            socialHeight: form.socialHeight.value,
-            socialFormat: form.socialFormat.value
+            normalizeAudio: form.normalizeAudio ? form.normalizeAudio.checked : false,
+            audioCodec: form.audioCodec ? form.audioCodec.value : 'aac',
+            videoCodec: form.videoCodec ? form.videoCodec.value : 'copy',
+            outputFormat: form.outputFormat ? form.outputFormat.value : 'mp4',
+            socialMedia: form.socialMedia ? form.socialMedia.checked : false,
+            socialWidth: form.socialWidth ? form.socialWidth.value : 1080,
+            socialHeight: form.socialHeight ? form.socialHeight.value : 1080,
+            socialFormat: form.socialFormat ? form.socialFormat.value : 'mp4'
         };
         
         // Send the request
@@ -292,12 +307,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('statusText').textContent = 'Error: ' + data.message;
                 document.getElementById('startButton').disabled = false;
                 document.getElementById('stopButton').disabled = true;
+                document.getElementById('findMatchesButton').disabled = false;
             }
         })
         .catch(error => {
             document.getElementById('statusText').textContent = 'Error: ' + error.message;
             document.getElementById('startButton').disabled = false;
             document.getElementById('stopButton').disabled = true;
+            document.getElementById('findMatchesButton').disabled = false;
         });
     });
     
@@ -310,13 +327,14 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             if (data.success) {
                 document.getElementById('statusText').textContent = 'Operation stopped';
+                document.getElementById('startButton').disabled = false;
+                document.getElementById('findMatchesButton').disabled = false;
             }
+            this.disabled = true;
         })
         .catch(error => {
             console.error('Error stopping operation:', error);
         });
-        
-        this.disabled = true;
     });
     
     // Find matches button handler
@@ -388,6 +406,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Reset UI
                 document.getElementById('startButton').disabled = false;
                 document.getElementById('stopButton').disabled = true;
+                document.getElementById('findMatchesButton').disabled = false;
                 
                 if (data.percent === 100) {
                     document.getElementById('statusText').textContent = 'Processing completed successfully';
@@ -399,6 +418,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('statusText').textContent = 'Error checking status';
             document.getElementById('startButton').disabled = false;
             document.getElementById('stopButton').disabled = true;
+            document.getElementById('findMatchesButton').disabled = false;
         });
     }
 });
@@ -488,6 +508,15 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <option value="copy">Copy (no re-encoding, recommended)</option>
                                 <option value="h264">H.264</option>
                                 <option value="hevc">H.265/HEVC</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="outputFormat">Output Format:</label>
+                            <select id="outputFormat" name="outputFormat">
+                                <option value="mp4">MP4 (recommended)</option>
+                                <option value="webm">WebM</option>
+                                <option value="mov">MOV</option>
                             </select>
                         </div>
                     </div>
@@ -747,7 +776,7 @@ def run_web_ui(args):
     print("Press Ctrl+C to stop")
     
     # Open browser
-    threading.Thread(target=lambda: webbrowser.open(f"http://{host}:{port}")).start()
+    threading.Timer(1.0, lambda: webbrowser.open(f"http://{host}:{port}")).start()
     
     # Run server
     try:
