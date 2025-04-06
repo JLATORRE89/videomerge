@@ -88,3 +88,6 @@ Thumbs.db
 # Logs directory: Ignore all files inside logs, but keep the folder tracked
 logs/*
 !logs/.gitkeep
+
+#backup files
+.bak
